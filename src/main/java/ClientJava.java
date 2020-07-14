@@ -16,8 +16,12 @@ public class ClientJava {
         HubConnection hubConnection = HubConnectionBuilder.create(input)
                 .build();
 
-        hubConnection.on("Send", (message) -> {
-            System.out.println("New Message: " + message);
+        hubConnection.on("ReceiveMessage", (message) -> {
+            System.out.println("Java Client New Message: " + message);
+        }, String.class);
+
+        hubConnection.on("ReceiveObjectMessage", (message) -> {
+            System.out.println("Java Client New Message Object: " + message);
         }, String.class);
 
         //This is a blocking call
@@ -25,7 +29,7 @@ public class ClientJava {
 
         while (!input.equals("leave")){
             input = reader.nextLine();
-            hubConnection.send("Send", input);
+            hubConnection.send("ReceiveMessage", "Leave Java Client");
         }
 
         hubConnection.stop();
