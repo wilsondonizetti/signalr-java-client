@@ -29,8 +29,9 @@ public class ClientJava {
 
         while (!input.equals("leave")){
             input = reader.nextLine();
-            hubConnection.send("ReceiveMessage", "Leave Java Client");
+            //hubConnection.send("ReceiveMessage", "Leave Java Client");
         }
+        reader.close();
 
         hubConnection.stop();
     }
